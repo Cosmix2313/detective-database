@@ -2,6 +2,7 @@ const LOGIN_KEY = "fcid-session";
 const LOGIN_ROLE_KEY = "fcid-role";
 const WANTED_KEY = "fcid-wanted";
 const LINKS_KEY = "fcid-investigation-links";
+const WEAPONS_KEY = "fcid-weapons";
 
 const ACCESS = {
   user: { id: "FC-214", passcode: "fortcarson" },
@@ -28,7 +29,7 @@ const documentation = [
   "Manuale rischio operativo in campo",
 ];
 
-const armoryRegister = [
+const defaultArmoryRegister = [
   "M4A1 - Serial FCM4-7721 - Assegnata a Unit Bravo",
   "G17 - Serial FCG17-3120 - Armory shelf B2",
   "Taser X26 - Serial FCX26-9914 - In manutenzione",
@@ -99,6 +100,7 @@ const els = {
   weaponsList: document.getElementById("weaponsList"),
   wantedList: document.getElementById("wantedList"),
   linksList: document.getElementById("linksList"),
+  weaponForm: document.getElementById("weaponForm"),
   adminPanel: document.getElementById("adminPanel"),
   wantedForm: document.getElementById("wantedForm"),
   investigationForm: document.getElementById("investigationForm"),
@@ -107,6 +109,7 @@ const els = {
 
 let wanted = loadList(WANTED_KEY, defaultWanted);
 let investigationLinks = loadList(LINKS_KEY, defaultLinks);
+let armoryRegister = loadList(WEAPONS_KEY, defaultArmoryRegister);
 
 init();
 
@@ -129,6 +132,8 @@ function init() {
   els.loginForm.addEventListener("submit", handleLogin);
   els.logoutButton.addEventListener("click", handleLogout);
   els.searchInput.addEventListener("input", handleSearch);
+  els.weaponForm.addEventListener("submit", handleAddWeaponEntry);
+  els.linksList.addEventListener("click", handleCloseInvestigation);
   els.wantedForm.addEventListener("submit", handleAddWanted);
   els.investigationForm.addEventListener("submit", handleAddInvestigationLink);
 }
@@ -173,6 +178,44 @@ function handleSearch() {
   });
 
   renderRecords(filtered);
+}
+
+
+function handleAddWeaponEntry(event) {
+  event.preventDefault();
+
+  const formData = new FormData(els.weaponForm);
+  const entry = String(formData.get("weaponEntry") || "").trim();
+
+  if (!entry) {
+    return;
+  }
+
+  armoryRegister.unshift(entry);
+  persistList(WEAPONS_KEY, armoryRegister);
+  renderWeapons();
+  els.weaponForm.reset();
+}
+
+function handleCloseInvestigation(event) {
+  const button = event.target.closest("button[data-close-link]");
+  if (!button) {
+    return;
+  }
+
+  const index = Number(button.dataset.closeLink);
+  if (!Number.isInteger(index) || index < 0 || index >= investigationLinks.length) {
+    return;
+  }
+
+  investigationLinks.splice(index, 1);
+  persistList(LINKS_KEY, investigationLinks);
+  renderLinks();
+  renderStats();
+
+  if (isAdmin()) {
+    setAdminMessage("Indagine contrassegnata come chiusa e rimossa dal database locale.");
+  }
 }
 
 function handleAddWanted(event) {
@@ -313,8 +356,12 @@ function renderTimeline() {
 function renderLinks() {
   els.linksList.innerHTML = investigationLinks
     .map(
-      (entry) =>
-        `<a class="link-card" href="${escapeAttribute(entry.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(entry.label)}</a>`,
+      (entry, index) => `
+        <article class="link-card">
+          <a href="${escapeAttribute(entry.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(entry.label)}</a>
+          <button class="button ghost close-btn" type="button" data-close-link="${index}">Chiudi indagine</button>
+        </article>
+      `,
     )
     .join("");
 }
