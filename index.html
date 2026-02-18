@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OhvaleCity Wiki</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">OhvaleCity</p>
+        <h1>Wiki & Regolamento</h1>
+      </div>
+      <button id="adminToggle" class="button ghost">Area Admin</button>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar card">
+        <h2>Navigazione</h2>
+        <nav>
+          <a href="#faq">FAQ</a>
+          <a href="#regolamento">Regolamento</a>
+          <a href="#stato-server">Stato Server</a>
+          <a href="#guide">Guide</a>
+        </nav>
+      </aside>
+
+      <section class="content">
+        <section class="card" id="searchBox">
+          <label for="searchInput">Ricerca wiki</label>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Cerca FAQ, regole, guide..."
+            autocomplete="off"
+          />
+        </section>
+
+        <section class="card" id="stato-server">
+          <h2>Quanti sono online?</h2>
+          <p class="server-host">Host monitorato: <span id="serverHost"></span></p>
+          <p id="serverStatus">Caricamento stato server...</p>
+          <button id="refreshStatus" class="button">Aggiorna stato</button>
+        </section>
+
+        <section class="card searchable" id="faq">
+          <h2>FAQ</h2>
+          <div id="faqList"></div>
+        </section>
+
+        <section class="card searchable" id="regolamento">
+          <h2>Regolamento RP City</h2>
+          <ol id="rulesList"></ol>
+        </section>
+
+        <section class="card searchable" id="guide">
+          <h2>Guide rapide</h2>
+          <div class="guide-grid" id="guidesList"></div>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="adminDialog">
+      <form method="dialog" id="adminAuthForm" class="auth-form">
+        <h3>Accesso admin</h3>
+        <p>Inserisci la password admin per modificare contenuti e host server.</p>
+        <input id="adminPassword" type="password" placeholder="Password" required />
+        <menu>
+          <button value="cancel" class="button ghost">Annulla</button>
+          <button value="default" class="button">Accedi</button>
+        </menu>
+      </form>
+
+      <section id="adminPanel" hidden>
+        <h3>Pannello Admin</h3>
+        <p class="hint">
+          Modifiche salvate nel browser corrente (demo). Per produzione collega un backend.
+        </p>
+
+        <label for="hostInput">Host server Minecraft</label>
+        <input id="hostInput" type="text" placeholder="play.ohvalecity.it" />
+
+        <label for="newRule">Aggiungi regola</label>
+        <div class="row">
+          <input id="newRule" type="text" placeholder="Nuova regola" />
+          <button id="addRule" class="button" type="button">Aggiungi</button>
+        </div>
+
+        <label for="newFaqQ">Aggiungi FAQ</label>
+        <input id="newFaqQ" type="text" placeholder="Domanda" />
+        <input id="newFaqA" type="text" placeholder="Risposta" />
+        <button id="addFaq" class="button" type="button">Aggiungi FAQ</button>
+
+        <menu>
+          <button id="saveAdmin" class="button" type="button">Salva modifiche</button>
+          <button id="closeAdmin" class="button ghost" type="button">Chiudi</button>
+        </menu>
+      </section>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>

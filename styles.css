@@ -1,0 +1,177 @@
+:root {
+  color-scheme: dark;
+  --bg: #1a0b0b;
+  --card: #2a1111;
+  --muted: #d9a9a9;
+  --text: #fff5f5;
+  --accent: #ff4d4d;
+  --accent-soft: rgba(255, 77, 77, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: radial-gradient(circle at top, #5a0f0f 0%, var(--bg) 45%);
+  color: var(--text);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1rem;
+  padding: 0 2rem 2rem;
+}
+
+.card {
+  background: rgba(42, 17, 17, 0.88);
+  border: 1px solid rgba(255, 140, 140, 0.25);
+  border-radius: 16px;
+  padding: 1rem;
+  backdrop-filter: blur(6px);
+}
+
+.sidebar nav {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.sidebar a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+}
+
+.sidebar a:hover {
+  background: var(--accent-soft);
+}
+
+.content {
+  display: grid;
+  gap: 1rem;
+}
+
+input {
+  width: 100%;
+  background: #150909;
+  border: 1px solid rgba(255, 140, 140, 0.35);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+}
+
+input:focus {
+  outline: 2px solid var(--accent);
+  border-color: var(--accent);
+}
+
+.button {
+  background: var(--accent);
+  color: #2a0707;
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255, 170, 170, 0.45);
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.server-host,
+.hint {
+  color: var(--muted);
+}
+
+.faq-item {
+  border-left: 3px solid var(--accent);
+  padding-left: 0.7rem;
+  margin-bottom: 0.8rem;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.guide {
+  padding: 0.8rem;
+  background: rgba(25, 9, 9, 0.75);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 140, 140, 0.25);
+}
+
+.row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+dialog {
+  background: var(--card);
+  border: 1px solid rgba(255, 140, 140, 0.35);
+  border-radius: 14px;
+  color: var(--text);
+  width: min(680px, calc(100vw - 2rem));
+}
+
+dialog::backdrop {
+  background: rgba(14, 3, 3, 0.78);
+}
+
+menu {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0;
+}
+
+.auth-form {
+  display: grid;
+  gap: 0.7rem;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 1rem;
+  }
+
+  .topbar {
+    padding: 1rem;
+  }
+}
