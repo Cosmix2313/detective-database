@@ -1,15 +1,22 @@
-# Ohvalecity-WIKI
+Template frontend statico per un **database investigativo** stile Fort Carson (login demo + dashboard protetta).
 
-Wiki stile GitBook per il server RP Minecraft **OhvaleCity** (tema rosso) con:
+## Avvio locale (consigliato)
 
-- 🔎 Ricerca live su FAQ, regolamento e guide.
-- 📜 Sezione regolamento RP City (no RDM/VDM, azioni con senso) modificabile.
-- 🟢 Stato server con numero player online.
-- 🛠️ Pannello admin (protetto da password demo) per aggiornare host, regole e FAQ.
+Apri un terminale nella cartella del progetto e usa **uno** di questi comandi:
 
-## Avvio locale
+### Windows (PowerShell / CMD)
 
-Puoi usare un server statico qualunque. Esempio con Python:
+```powershell
+py -m http.server 8080
+```
+
+Se `py` non funziona, prova:
+
+```powershell
+python -m http.server 8080
+```
+
+### Linux / macOS / WSL
 
 ```bash
 python3 -m http.server 8080
@@ -17,9 +24,53 @@ python3 -m http.server 8080
 
 Poi apri: <http://localhost:8080>
 
-## Password admin demo
+---
 
-- Password predefinita: `ohvale-admin`
-- File: `app.js` (`ADMIN_PASSWORD`)
+## Risoluzione errore su Windows: "Python non è stato trovato... Microsoft Store"
 
-> Nota: il pannello admin salva nel `localStorage` del browser. Per una versione produzione serve backend + autenticazione reale.
+Se vedi il messaggio:
+
+> "Python non è stato trovato; eseguire senza argomenti da installare dal Microsoft Store..."
+
+significa quasi sempre che Windows sta usando l'**alias App Execution** invece dell'installazione Python reale.
+
+Prova in questo ordine:
+
+1. Verifica Python:
+
+   ```powershell
+   py --version
+   python --version
+   ```
+
+2. Se `py --version` funziona, usa sempre:
+
+   ```powershell
+   py -m http.server 8080
+   ```
+
+3. Se `python --version` apre il messaggio Microsoft Store:
+   - Vai in **Impostazioni > App > Impostazioni app avanzate > Alias di esecuzione dell'app**.
+   - Disattiva gli alias di `python.exe` e `python3.exe`.
+   - Chiudi e riapri il terminale.
+
+4. Controlla che il Python installato sia nel PATH e riprova:
+
+   ```powershell
+   python -m http.server 8080
+   ```
+
+---
+
+## Credenziali demo login
+
+- Agent ID: `FC-214`
+- Passcode: `fortcarson`
+
+Definite in `app.js` (solo demo frontend, nessuna sicurezza reale).
+
+## Note
+
+- Questo progetto è **solo frontend statico**.
+- Lo stato login è salvato in `localStorage` del browser.
+- Per produzione serve backend + autenticazione reale.
