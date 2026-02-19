@@ -40,12 +40,14 @@
         <section class="grid">
           <article class="card panel span-2">
             <h3>Registro agenti detective</h3>
-            <p class="muted small">Ogni operatore può aggiornare il proprio profilo e stato (1/2/3 indagini).</p>
+            <p class="muted small">
+              Ogni operatore può aggiornare il proprio stato/assegnazione. L'admin imposta e modifica anche il grado.
+            </p>
             <div id="agentsList" class="tile-list"></div>
           </article>
 
           <article class="card panel">
-            <h3>Panoramica operativa</h3>
+            <h3>Panoramica operativa attiva</h3>
             <ul class="stats" id="statsList"></ul>
           </article>
 
@@ -90,22 +92,6 @@
           </article>
 
           <article class="card panel full">
-            <h3>Ricerca soggetti</h3>
-            <input
-              id="searchInput"
-              type="search"
-              placeholder="Cerca per nome, alias, stato..."
-              autocomplete="off"
-            />
-            <div id="recordsList" class="records-list"></div>
-          </article>
-
-          <article class="card panel span-2">
-            <h3>Registro attività live</h3>
-            <div id="timeline" class="timeline"></div>
-          </article>
-
-          <article class="card panel">
             <h3>Indagini rapide</h3>
             <div id="linksList" class="links-grid"></div>
             <p class="muted small">Usa “Chiudi indagine” per rimuovere una voce dal database locale.</p>
@@ -114,8 +100,8 @@
           <article class="card panel full admin-panel" id="adminPanel" hidden>
             <h3>Pannello Admin</h3>
             <p class="muted small">
-              Come admin puoi aggiungere agenti (ID + password), aggiornare gli stati dalla lista operatori,
-              inserire ricercati e link indagini (es. Google Sheet condiviso).
+              Come admin puoi aggiungere agenti (ID + password + grado), aggiornare gradi/stati dalla lista operatori,
+              inserire ricercati e link indagini.
             </p>
 
             <div class="admin-grid">
@@ -132,6 +118,15 @@
 
                 <label for="newAgentUnit">Unità</label>
                 <input id="newAgentUnit" name="newAgentUnit" type="text" required />
+
+                <label for="newAgentGrade">Grado investigativo</label>
+                <input
+                  id="newAgentGrade"
+                  name="newAgentGrade"
+                  type="text"
+                  placeholder="Detective in formazione"
+                  required
+                />
 
                 <label for="newAgentStatus">Stato operativo</label>
                 <input id="newAgentStatus" name="newAgentStatus" type="text" placeholder="On Duty" required />
